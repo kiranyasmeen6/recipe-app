@@ -28,8 +28,8 @@ div.stButton > button:hover {background: #CF6D17; color: white; transform: scale
 .float-bg span {position: absolute; bottom: -60px; font-size: 36px; opacity: 0.2;
        animation: rise 16s linear infinite;}
 @keyframes rise {from {transform: translateY(0) rotate(0deg);} to {transform: translateY(-115vh) rotate(360deg);}}
-.chef {position: fixed; right: 2vw; bottom: -2vh; font-size: clamp(200px, 28vw, 420px); z-index: 0;
-       opacity: 0.4; pointer-events: none; animation: bob 2.6s ease-in-out infinite;}
+.chef {position: fixed; right: 22px; bottom: 14px; font-size: 84px; z-index: 2;
+       pointer-events: none; animation: bob 2.6s ease-in-out infinite;}
 @keyframes bob {0%,100% {transform: translateY(0) rotate(-5deg);} 50% {transform: translateY(-14px) rotate(5deg);}}
 @media (max-width: 700px) {.chef {display: none;}}
 </style>
