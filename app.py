@@ -28,9 +28,10 @@ div.stButton > button:hover {background: #CF6D17; color: white; transform: scale
 .float-bg span {position: absolute; bottom: -60px; font-size: 36px; opacity: 0.2;
        animation: rise 16s linear infinite;}
 @keyframes rise {from {transform: translateY(0) rotate(0deg);} to {transform: translateY(-115vh) rotate(360deg);}}
-.chef {position: fixed; right: 22px; bottom: 14px; font-size: 84px; z-index: 2;
-       pointer-events: none; animation: bob 2.6s ease-in-out infinite;}
+.chef {position: fixed; right: 2vw; bottom: -2vh; font-size: clamp(200px, 28vw, 420px); z-index: 0;
+       opacity: 0.4; pointer-events: none; animation: bob 2.6s ease-in-out infinite;}
 @keyframes bob {0%,100% {transform: translateY(0) rotate(-5deg);} 50% {transform: translateY(-14px) rotate(5deg);}}
+@media (max-width: 700px) {.chef {display: none;}}
 </style>
 <div class="float-bg">
 <span style="left:4%; animation-delay:0s">🍅</span>
@@ -78,7 +79,6 @@ with left:
         go = st.button("✨ Generate Recipe")
 
 if go:
-    if go:
     if st.session_state.get("count", 0) >= 5:
         st.session_state.recipe = None
         st.error("You reached the free limit for this visit (5 recipes). Please come back later.")
@@ -101,6 +101,7 @@ if go:
         except Exception:
             st.session_state.recipe = None
             st.error("The chef is busy right now. Please try again in a minute.")
+
 with right:
     with st.container(border=True):
         st.subheader("Your recipe")
