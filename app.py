@@ -78,7 +78,11 @@ with left:
         go = st.button("✨ Generate Recipe")
 
 if go:
-    if not ingredients.strip():
+    if go:
+    if st.session_state.get("count", 0) >= 5:
+        st.session_state.recipe = None
+        st.error("You reached the free limit for this visit (5 recipes). Please come back later.")
+    elif not ingredients.strip():
         st.session_state.recipe = None
         st.warning("Please enter at least one ingredient.")
     else:
@@ -86,13 +90,17 @@ if go:
                   f"Cuisine: {cuisine}. Diet: {diet}. Max time: {minutes} minutes. "
                   f"Avoid these allergens: {allergies or 'none'}. "
                   "Give: recipe name, ingredients with quantities, numbered steps, servings.")
-        with st.spinner("The chef is cooking..."):
-            res = client.chat.completions.create(
-                model="openai/gpt-oss-20b",
-                messages=[{"role": "user", "content": prompt}],
-            )
-        st.session_state.recipe = res.choices[0].message.content
-
+        try:
+            with st.spinner("The chef is cooking..."):
+                res = client.chat.completions.create(
+                    model="openai/gpt-oss-20b",
+                    messages=[{"role": "user", "content": prompt}],
+                )
+            st.session_state.recipe = res.choices[0].message.content
+            st.session_state.count = st.session_state.get("count", 0) + 1
+        except Exception:
+            st.session_state.recipe = None
+            st.error("The chef is busy right now. Please try again in a minute.")
 with right:
     with st.container(border=True):
         st.subheader("Your recipe")
